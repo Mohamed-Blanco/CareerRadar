@@ -144,6 +144,8 @@ In Order to start this project is very simple :
 ```
 
 # Example output
+
+```json
 [
   {
         "title": "Analyste KYC - Remote Maroc",
