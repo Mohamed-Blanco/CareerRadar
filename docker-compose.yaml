@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  postgres:
+    networks:
+      - mynet
+    image: postgres:17
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=job-student-db
+    volumes:
+      - pgdata_2:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d job-student-db"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  chrome:
+    image: selenium/standalone-chrome:latest
+    hostname: chrome
+    environment:
+      # Display settings
+      - SCREEN_WIDTH=1920
+      - SCREEN_HEIGHT=1080
+      - SCREEN_DEPTH=24
+      
+      # Performance settings
+      - JAVA_OPTS=-Xmx2g
+      - SE_NODE_MAX_SESSIONS=1
+      - SE_NODE_SESSION_TIMEOUT=300
+      
+      # Chrome specific settings
+      - SE_CHROME_ARGS=--no-sandbox --disable-dev-shm-usage --disable-gpu --window-size=1920,1080 --disable-features=VizDisplayCompositor
+      
+      # Logging
+      - SE_LOG_LEVEL=INFO
+      
+    networks:
+      - mynet
+    ports:
+      - "5900:5900"  # VNC port for debugging
+      - "4444:4444"  # Selenium port
+    privileged: true
+    shm_size: 2g
+    
+    # Resource limits to prevent container from consuming all resources
+    deploy:
+      resources:
+        limits:
+          memory: 3g
+          cpus: '2'
+        reservations:
+          memory: 1g
+          cpus: '1'
+    
+    # Health check for Chrome
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:4444/wd/hub/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  flask:
+    networks:
+      - mynet
+    build: ./opp_seeker
+    ports:
+      - "5099:5099"
+    environment:
+      - DATABASE_URL=postgresql://postgres:root@postgres:5432/job-student-db
+      - CHROME_API=http://chrome:4444/wd/hub
+      
+      # Python optimizations
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      
+    depends_on:
+      postgres:
+        condition: service_healthy
+      chrome:
+        condition: service_healthy
+        
+    volumes:
+      - ./opp_seeker/data_warehouse/raw/jobs_data.json:/opp_seeker/data_warehouse/raw/jobs_data.json
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: '1'
+    
+    # Restart policy
+    restart: unless-stopped
+
+volumes:
+  pgdata_2:
+
+networks:
+  mynet:
+    driver: bridge
