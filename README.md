@@ -13,7 +13,7 @@
 ![Database](https://img.shields.io/badge/PostgreSQL-15+-336791?style=for-the-badge\&logo=postgresql)
 ![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey?style=for-the-badge)
 
-**An intelligent, automated system for collecting and standardizing job listings across multiple platforms.**
+**An intelligent, automated system for collecting and standardizing job listings from Linkdein.**
 
 *Dynamic scraping, anti-bot resilience, and clean data pipelines for job recommendation engines.*
 
