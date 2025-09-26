@@ -115,11 +115,12 @@ python -m venv venv
 source venv/bin/activate   # Linux/macOS
 venv\Scripts\activate      # Windows
 
-# Install dependencies
-pip install -r requirements.txt
+# Use Docker !!
+Before porceding , please assure to run this project via docker !!
 
-# Configure database in .env
-DATABASE_URL=postgresql://user:password@localhost:5432/jobs
+# Configure project basic parameters in general_params.py
+
+
 ```
 
 ---
