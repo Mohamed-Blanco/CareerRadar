@@ -127,21 +127,38 @@ DATABASE_URL=postgresql://user:password@localhost:5432/jobs
 ## Getting Started
 
 ```bash
-# Run scraper
-python scraper.py --platform linkedin --pages 10
+In Order to start this project is very simple :
+```bash
+    #Step 1 : build containers via docker compose 
+    docker compose up --build
+
+    #Step 2 : using terminal or any api platform :
+
+          via postman : http://localhost:5099/api/pipelines/full/20
+          via terminal : curl -X POST http://flask:5099/api/pipelines/full/8000
+    thats it !!!
+    Now you can check this file to see the results , when the scrapper finishs :
+        opp_seeker/data_warehouse/raw/jobs_data.json
+       
+```
 
 # Example output
 [
   {
-    "id": "12345",
-    "title": "Software Engineer",
-    "company": "TechCorp",
-    "location": "Casablanca, MA",
-    "date_posted": "2025-09-20",
-    "experience_level": "Entry",
-    "applicants": 35,
-    "description": "...",
-  }
+        "title": "Analyste KYC - Remote Maroc",
+        "entreprise": "Yapla",
+        "location": "Casablanca Metropolitan Area",
+        "nomberofapplicants": "32",
+        "time": null,
+        "description": "📢 Nous Recrutons un(e) Analyste KYC !🤝 Notre mission chez Yapla ?Accompagner les associations pour faciliter...",
+        "Niveau hiérarchique": "Entry level",
+        "Type d’emploi": "Full-time",
+        "Fonction": "Finance and Sales",
+        "Secteurs": "Non-profit Organizations",
+        "joblink": "https://www.linkedin.com/jobs/view/4238238418/?alternateChannel=search&refId=AFYeJOMJHPAGzw3EjH59FQ%3D%3D&trackingId=FcBdDTjfIr%2FJomXXdyVFoA%3D%3D",
+        "found_by_keyword": "Programme de stage",
+        "logo_url": "https://media.licdn.com/dms/image/v2/D4D0BAQEKi6-J2mBEzQ/company-logo_100_100/company-logo_100_100/0/1712662452867/yaplacommunity_logo?e=2147483647&v=beta&t=YD8UR1KNvg3Y20Hy9R9J9Mas_K4JxA7IFEPlAomEn3w"
+    },
 ]
 ```
 
@@ -218,7 +235,7 @@ MIT License – See [LICENSE](LICENSE) file for details.
 
 ---
 
-**Built by [Your Name](https://github.com/yourusername)**
+**if you have any question or you want to contribute , you can contact me here : labiadmo920@gmail.com**
 
 *If this project helped you, give it a ⭐*
 
