@@ -24,17 +24,17 @@ services:
     image: selenium/standalone-chrome:latest
     hostname: chrome
     environment:
-      # Display settings
+
       - SCREEN_WIDTH=1920
       - SCREEN_HEIGHT=1080
       - SCREEN_DEPTH=24
       
-      # Performance settings
+
       - JAVA_OPTS=-Xmx2g
       - SE_NODE_MAX_SESSIONS=1
       - SE_NODE_SESSION_TIMEOUT=300
       
-      # Chrome specific settings
+
       - SE_CHROME_ARGS=--no-sandbox --disable-dev-shm-usage --disable-gpu --window-size=1920,1080 --disable-features=VizDisplayCompositor
       
       # Logging
@@ -44,7 +44,7 @@ services:
       - mynet
     ports:
       - "5900:5900"  # VNC port for debugging
-      - "4444:4444"  # Selenium port
+      - "4444:4444"  
     privileged: true
     shm_size: 2g
     
@@ -58,7 +58,7 @@ services:
           memory: 1g
           cpus: '1'
     
-    # Health check for Chrome
+
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:4444/wd/hub/status || exit 1"]
       interval: 30s
@@ -76,7 +76,7 @@ services:
       - DATABASE_URL=postgresql://postgres:root@postgres:5432/job-student-db
       - CHROME_API=http://chrome:4444/wd/hub
       
-      # Python optimizations
+
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
       
@@ -89,14 +89,14 @@ services:
     volumes:
       - ./opp_seeker/data_warehouse/raw/jobs_data.json:/opp_seeker/data_warehouse/raw/jobs_data.json
     
-    # Resource limits
+
     deploy:
       resources:
         limits:
           memory: 1g
           cpus: '1'
     
-    # Restart policy
+
     restart: unless-stopped
 
 volumes:
