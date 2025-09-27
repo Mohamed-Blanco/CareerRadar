@@ -58,6 +58,12 @@ This project implements an **intelligent web scraping agent** that:
 * A public API for external clients.
 * A guaranteed bypass for all scraping protections (e.g., advanced CAPTCHAs).
 
+**What You Will Need ? :**
+
+* Docker installed .
+* Linkdein acount (create a new one if possible ) .
+
+ Thats it !!
 ---
 
 ## Key Features
