@@ -62,6 +62,7 @@ This project implements an **intelligent web scraping agent** that:
 
 * Docker installed .
 * Linkdein acount (create a new one if possible ) .
+* Search for auth_manager and enter your data localy !! 
 
  Thats it !!
 ---
