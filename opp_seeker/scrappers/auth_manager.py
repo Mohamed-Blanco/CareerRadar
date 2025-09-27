@@ -27,8 +27,8 @@ from opp_seeker.scrappers.chromedriver_manager import Chromedriver_Manager
 class Auth_Manager :
     def __init__(self,driver):
         self.driver =  driver
-        self.USERNAME ="paypalabiad@gmail.com"
-        self.PASSWORD = "labiad1234"
+        self.USERNAME ="youremail@gmail.com"
+        self.PASSWORD = "labiad"
 
     def login_linkdein(self):
         try:
